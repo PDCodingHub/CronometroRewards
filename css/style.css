@@ -1,0 +1,41 @@
+    body {
+      background: linear-gradient(135deg, #cce5f6, #8fb3f4);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    #timer {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #points {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    .btn-main {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+
+    .side-button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
