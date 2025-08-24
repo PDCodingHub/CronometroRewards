@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta author="Pablo Daniel Porcó Molina">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronómetro Rewards</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #cce5f6, #8fb3f4);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    #timer {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #points {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    .btn-main {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+
+    .side-button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  </style>
+</head>
+<body>
+<div class="container text-center">
+  
+  <!-- Imagen centrada -->
+  <div class="d-flex justify-content-center mb-n4">
+    <img src="https://rewards.bing.com/rewardscdn/images/rewards.png" 
+         alt="Microsoft Rewards" 
+         class="img-fluid" style="width: 80px;">
+  </div>
+
+  <!-- Tarjeta -->
+  <div class="card mx-auto" style="max-width: 400px;">
+    <div class="card-body">
+      <div id="timer" class="mb-3">0.0</div>
+
+      <div id="points-container" class="d-flex justify-content-center align-items-center gap-3 mb-3">
+        <button class="btn btn-outline-danger side-button" onclick="subtractPoints()">-</button>
+        <div id="points">Puntos: 0</div>
+        <button class="btn btn-outline-success side-button" onclick="addPoints()">+</button>
+      </div>
+
+      <button class="btn btn-primary btn-main" onclick="resetPoints()">Reiniciar Puntos</button>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    let startTime;
+    let interval;
+    let puntos = 0;
+
+    function updatePoints() {
+      puntos += 3;
+      renderPoints();
+    }
+
+    function resetPoints() {
+      location.reload();
+    }
+
+    function addPoints() {
+      puntos += 7;
+      renderPoints();
+    }
+
+    function subtractPoints() {
+      puntos = Math.max(0, puntos - 6);
+      renderPoints();
+    }
+
+    function renderPoints() {
+      document.getElementById("points").textContent = "Puntos: " + puntos;
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      clearInterval(interval);
+      interval = setInterval(() => {
+        const elapsedMs = Date.now() - startTime;
+        const totalSeconds = Math.floor(elapsedMs / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = ((elapsedMs % 60000) / 1000).toFixed(1);
+
+        const display = minutes > 0
+          ? `${minutes} minuto${minutes > 1 ? 's' : ''} ${seconds}s`
+          : `${seconds}s`;
+
+        const timerElement = document.getElementById("timer");
+        timerElement.textContent = display;
+
+        timerElement.style.color = (minutes > 0 || parseFloat(seconds) >= 5.3) ? "green" : "#333";
+      }, 100);
+    }
+
+    document.addEventListener("mousedown", function (event) {
+      if (event.button === 0) {
+        startTimer();
+        updatePoints();
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
